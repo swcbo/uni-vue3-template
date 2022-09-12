@@ -2,14 +2,14 @@
  * @Author: swcbo
  * @Date: 2022-03-05 13:42:34
  * @LastEditors: swcbo
- * @LastEditTime: 2022-09-12 21:59:59
+ * @LastEditTime: 2022-09-12 22:49:51
  * @FilePath: /uni-vue3-template/src/components/CustomNav/index.vue
  * @Description:  自定义导航栏
 -->
 <template>
   <u-navbar
     fixed
-    @leftClick="onClickLeft"
+    @leftClick="onLeftClick"
     :leftIcon="iconType"
     v-bind="navPorps"
   >
@@ -20,19 +20,23 @@
 </template>
 
 <script lang="ts" setup>
+import { NAV_CONFIG } from '@/constant'
 import { isH5 } from '@/utils/platform'
 import { onShow } from '@dcloudio/uni-app'
-import { computed } from 'vue'
-const emit = defineEmits(['on-click-left'])
-const { hiddenBack, ...other } = defineProps({
-  // 是否显示返回按钮
-  hiddenBack: {
-    type: Boolean,
-    default: false,
-  },
-  title: {
-    type: String,
-  },
+import { computed, useAttrs } from 'vue'
+
+export interface INavProps {
+  title?: string
+  bgColor?: string
+  hiddenBack?: boolean
+  border?: boolean
+}
+const emit = defineEmits(['on-left-click'])
+const attrs = useAttrs()
+const { hiddenBack, ...other } = withDefaults(defineProps<INavProps>(), {
+  bgColor: NAV_CONFIG.bgColor,
+  border: NAV_CONFIG.border,
+  hiddenBack: false,
 })
 const navPorps = computed(() => other)
 const isCanBack = computed(() => {
@@ -41,15 +45,18 @@ const isCanBack = computed(() => {
 const iconType = computed(() =>
   hiddenBack ? '' : isCanBack.value ? 'arrow-left' : 'home',
 )
-
 onShow(() => {
   if (isH5)
     uni.setNavigationBarTitle({
       title: other.title || '',
     })
 })
-const onClickLeft = () => {
+const onLeftClick = () => {
   if (hiddenBack) return
+  if (attrs.onLeftClick) {
+    emit('on-left-click')
+    return
+  }
   if (isCanBack.value) {
     uni.navigateBack({})
   } else {
@@ -57,6 +64,5 @@ const onClickLeft = () => {
       url: '/pages/index/index',
     })
   }
-  emit('on-click-left')
 }
 </script>
