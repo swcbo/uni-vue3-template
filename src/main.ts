@@ -1,6 +1,8 @@
 import App from './App.vue'
+import '@/style/tailwind.css'
 import { createSSRApp } from 'vue'
 import { createPinia } from 'pinia'
+
 // @ts-ignore
 import uviewPlus from 'uview-plus'
 const createApp = () => {
