@@ -1,4 +1,5 @@
 import { getAuth, getLogin, setAuth } from '@/utils/auth'
+import { isH5 } from '@/utils/platform'
 import { showToast } from '@/utils/toast'
 export const post = <T>(url: string, data = {}) =>
   BaseRequest<T>('POST', url, data)
@@ -6,17 +7,11 @@ export const get = <T>(url: string, data = {}) =>
   BaseRequest<T>('GET', url, data)
 export const put = <T>(url: string, data = {}) =>
   BaseRequest<T>('PUT', url, data)
+export const del = <T>(url: string, data = {}) =>
+  BaseRequest<T>('DELETE', url, data)
 let count = 0
 export const BaseRequest = <T>(
-  method:
-    | 'OPTIONS'
-    | 'GET'
-    | 'HEAD'
-    | 'POST'
-    | 'PUT'
-    | 'DELETE'
-    | 'TRACE'
-    | 'CONNECT',
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   url: string,
   data?: object | ArrayBuffer,
 ) => {
@@ -29,7 +24,7 @@ export const BaseRequest = <T>(
     'Content-type': 'application/json;charset=utf-8',
     Authorization: `Bearer ${getAuth()}`,
   }
-  let realUrl = `${import.meta.env.VITE_HOST}${url}`
+  let realUrl = `${isH5 ? '' : import.meta.env.VITE_HOST}${url}`
   return new Promise<T>((resolve, reject) => {
     uni.request({
       url: realUrl,
