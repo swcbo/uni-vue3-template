@@ -16,7 +16,7 @@ export const useScreenStore = defineStore<
 >({
   id: 'screen',
   state: () => ({
-    statusBarHeight: 20,
+    statusBarHeight: 0,
     topHeight: isH5 ? '44px' : '0px',
     screenInfo: undefined,
   }),
@@ -25,7 +25,7 @@ export const useScreenStore = defineStore<
       const info = uni.getSystemInfoSync()
       const { statusBarHeight = 20, safeArea } = info
       this.screenInfo = info
-      this.statusBarHeight = statusBarHeight || 20
+      this.statusBarHeight = statusBarHeight
       this.topHeight = safeArea?.top + 'px'
     },
   },

@@ -17,12 +17,51 @@
       "style": {
         "navigationBarTitleText": "uni-app-template"
       }
+    },
+    {
+      "path": "pages/walk/index",
+      "style": {
+        "navigationBarTitleText": "uni-app-template"
+      }
+    },
+    {
+      "path": "pages/mine/index",
+      "style": {
+        "navigationBarTitleText": "uni-app-template"
+      }
     }
   ],
+  "tabBar": {
+    "color": "#949494",
+    "selectedColor": "#3192F6",
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "static/tabbar/icon_home_gray.png",
+        "selectedIconPath": "static/tabbar/icon_home_blue.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/walk/index",
+        "iconPath": "static/tabbar/icon_walk_gray.png",
+        "selectedIconPath": "static/tabbar/icon_walk_blue.png",
+        "text": "去健步"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "iconPath": "static/tabbar/icon_mine_gray.png",
+        "selectedIconPath": "static/tabbar/icon_mine_blue.png",
+        "text": "我的"
+      }
+    ]
+  },
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#F8F8F8",
+    "navigationStyle": "custom",
     "backgroundColor": "#F8F8F8"
   }
 }

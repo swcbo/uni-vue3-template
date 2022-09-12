@@ -13,4 +13,11 @@ export default {
 </script>
 <style lang="scss">
 @import 'uview-plus/index.scss';
+page {
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+}
 </style>
