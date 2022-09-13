@@ -2,7 +2,7 @@
  * @Author: swcbo
  * @Date: 2022-03-05 13:42:34
  * @LastEditors: swcbo
- * @LastEditTime: 2022-09-12 22:49:51
+ * @LastEditTime: 2022-09-12 22:57:48
  * @FilePath: /uni-vue3-template/src/components/CustomNav/index.vue
  * @Description:  自定义导航栏
 -->

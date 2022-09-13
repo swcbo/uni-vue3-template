@@ -15,19 +15,23 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import CustomNav, { INavProps } from '@/components/CustomNav/index.vue'
+import CustomNav from '@/components/CustomNav/index.vue'
 import { useScreenStore } from '@/store/screen'
 import { isH5 } from '@/utils/platform'
 import { hiddenNav } from '@/utils'
-interface IPageProps extends INavProps {
+interface IPageProps {
   isLoading?: boolean
   onLeftClick?: Function
+  title?: string
+  bgColor?: string
+  hiddenBack?: boolean
+  border?: boolean
 }
-const screen = useScreenStore()
 const props = withDefaults(defineProps<IPageProps>(), {
   isLoading: false,
   hiddenBack: isH5,
 })
+const screen = useScreenStore()
 const navPorps = computed(() => props)
 const top = computed(
   () => `${props.hiddenBack ? 0 : 44 + screen.statusBarHeight}px`,
