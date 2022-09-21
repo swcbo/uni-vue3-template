@@ -19,5 +19,6 @@ page {
   overflow-y: auto;
   background-color: #f9f9f9;
   box-sizing: border-box;
+  height: 100%;
 }
 </style>

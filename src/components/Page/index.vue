@@ -6,8 +6,10 @@
   </CustomNav>
   <div
     :style="{
-      paddingTop: top,
+      marginTop: top,
+      height: `calc(100% - ${top})`,
     }"
+    class="overflow-y-auto overflow-x-hidden"
   >
     <slot v-if="!isLoading"></slot>
   </div>
@@ -33,7 +35,5 @@ const props = withDefaults(defineProps<IPageProps>(), {
 })
 const screen = useScreenStore()
 const navPorps = computed(() => props)
-const top = computed(
-  () => `${props.hiddenBack ? 0 : 44 + screen.statusBarHeight}px`,
-)
+const top = computed(() => `${44 + screen.statusBarHeight}px`)
 </script>
