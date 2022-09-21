@@ -1,5 +1,5 @@
 <template>
-  <CustomNav v-bind="navPorps" @leftClick="onLeftClick" v-show="hiddenNav()">
+  <CustomNav v-bind="navPorps" @leftClick="onLeftClick" v-show="!hidden">
     <template #navLeft>
       <slot name="navLeft"></slot>
     </template>
@@ -33,7 +33,8 @@ const props = withDefaults(defineProps<IPageProps>(), {
   isLoading: false,
   hiddenBack: isH5,
 })
+const hidden = hiddenNav()
 const screen = useScreenStore()
 const navPorps = computed(() => props)
-const top = computed(() => `${44 + screen.statusBarHeight}px`)
+const top = computed(() => `${hidden ? 0 : 44 + screen.statusBarHeight}px`)
 </script>
