@@ -2,7 +2,7 @@
  * @Author: swcbo
  * @Date: 2022-03-05 14:48:41
  * @LastEditors: swcbo
- * @LastEditTime: 2022-09-25 14:41:52
+ * @LastEditTime: 2022-10-01 15:50:49
  * @FilePath: /uni-vue3-template/src/components/ScrollList/index.vue
  * @Description: 滚动列表
 -->

@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["dcloudio", "snsapi", "tailwindcss", "twucss"]
+  "cSpell.words": [
+    "dcloudio",
+    "pinia",
+    "snsapi",
+    "tailwindcss",
+    "twucss",
+    "uview"
+  ]
 }

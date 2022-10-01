@@ -1,16 +1,19 @@
+import { TPageStatus } from '@/constant'
 import { onLoad } from '@dcloudio/uni-app'
 import { ref } from 'vue'
-export type PromiseType<T extends Promise<any>> = T extends Promise<infer U>
-  ? U
-  : never
-export default <T extends (args: any) => Promise<any>>(
-  api: T,
-  load?: (values: Record<string, string | undefined>) => void,
+import Page from '@/components/Page/index.vue'
+export default (
+  load: (values: Record<string, string | undefined>) => Promise<void>,
 ) => {
-  const info = ref<PromiseType<ReturnType<T>>>()
+  const status = ref<TPageStatus>('loading')
+  const pageRef = ref<InstanceType<typeof Page> | null>(null)
   onLoad(async (values) => {
-    load?.(values)
-    info.value = await api({ ...values })
+    try {
+      await load({ ...values })
+      status.value = undefined
+    } catch (e) {
+      status.value = 'error'
+    }
   })
-  return { info }
+  return { status, pageRef }
 }

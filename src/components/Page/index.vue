@@ -1,5 +1,5 @@
 <template>
-  <CustomNav v-bind="navPorps" @leftClick="onLeftClick" v-show="!hidden">
+  <CustomNav v-bind="props" @leftClick="onLeftClick" v-show="!hidden">
     <template #navLeft>
       <slot name="navLeft"></slot>
     </template>
@@ -11,21 +11,21 @@
     }"
     class="overflow-y-auto overflow-x-hidden relative"
   >
-    <StatusView v-if="status" :status="status" />
+    <StatusView v-if="status" :status="status" @on-retry="onRetry" />
     <slot v-else />
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import CustomNav from '@/components/CustomNav/index.vue'
+import { NAV_CONFIG, TPageStatus } from '@/constant'
 import { useScreenStore } from '@/store/screen'
-import { isH5 } from '@/utils/platform'
 import { hiddenNav } from '@/utils'
-import { ERROR_TIPS, NAV_CONFIG } from '@/constant'
+import { isH5 } from '@/utils/platform'
+import { computed } from 'vue'
 import StatusView from '../StatusView/index.vue'
 interface IPageProps {
-  status?: keyof typeof ERROR_TIPS
+  status?: TPageStatus
   onLeftClick?: Function
   title?: string
   bgColor?: string
@@ -35,10 +35,14 @@ interface IPageProps {
 const props = withDefaults(defineProps<IPageProps>(), {
   hiddenBack: isH5,
 })
+const emits = defineEmits<{ (e: 'update:status', msg: TPageStatus): void }>()
 const hidden = hiddenNav()
 const screen = useScreenStore()
-const navPorps = computed(() => props)
 const top = computed(
   () => `${hidden ? 0 : NAV_CONFIG.height + screen.statusBarHeight}px`,
 )
+const onRetry = () => {
+  emits('update:status', 'loading')
+}
+defineExpose({ onRetry, top })
 </script>
