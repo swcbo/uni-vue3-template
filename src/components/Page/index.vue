@@ -9,9 +9,10 @@
       marginTop: top,
       height: `calc(100% - ${top})`,
     }"
-    class="overflow-y-auto overflow-x-hidden"
+    class="overflow-y-auto overflow-x-hidden relative"
   >
-    <slot v-if="!isLoading"></slot>
+    <StatusView v-if="status" :status="status" />
+    <slot v-else />
   </div>
 </template>
 
@@ -21,8 +22,10 @@ import CustomNav from '@/components/CustomNav/index.vue'
 import { useScreenStore } from '@/store/screen'
 import { isH5 } from '@/utils/platform'
 import { hiddenNav } from '@/utils'
+import { ERROR_TIPS, NAV_CONFIG } from '@/constant'
+import StatusView from '../StatusView/index.vue'
 interface IPageProps {
-  isLoading?: boolean
+  status?: keyof typeof ERROR_TIPS
   onLeftClick?: Function
   title?: string
   bgColor?: string
@@ -30,11 +33,12 @@ interface IPageProps {
   border?: boolean
 }
 const props = withDefaults(defineProps<IPageProps>(), {
-  isLoading: false,
   hiddenBack: isH5,
 })
 const hidden = hiddenNav()
 const screen = useScreenStore()
 const navPorps = computed(() => props)
-const top = computed(() => `${hidden ? 0 : 44 + screen.statusBarHeight}px`)
+const top = computed(
+  () => `${hidden ? 0 : NAV_CONFIG.height + screen.statusBarHeight}px`,
+)
 </script>

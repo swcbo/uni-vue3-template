@@ -9,4 +9,19 @@ export const SHARE_CONFIG = {
 export const NAV_CONFIG = {
   bgColor: '#fff',
   border: false,
+  height: 44,
+}
+/** 错误提示语 */
+export const ERROR_TIPS = {
+  error: {
+    tip: '请求异常',
+    restart: true,
+  },
+  loading: {
+    tip: '加载中',
+  },
+  networkError: {
+    tip: '网络异常',
+    restart: true,
+  },
 }

@@ -1,12 +1,11 @@
-import { getAuth } from './../utils/auth'
 import { onReachBottom } from '@dcloudio/uni-app'
 import { reactive, watch } from 'vue'
 import usePullDown from './usePullDown'
-export type TPaginationFun<T> = (data: {
+export type TPaginationFun<T = Array<any>> = (data: {
   page: number
   pageSize: number
-  [key: string]: unknown
-}) => Promise<T[]>
+  [key: string]: any
+}) => Promise<T>
 
 export type TPagination<T> = {
   pageNum: number
@@ -23,7 +22,7 @@ export type TPaginationConfig = {
   immediate?: boolean
 }
 export default <T extends (...args: any) => any = (...args: any) => any>(
-  fun: TPaginationFun<ReturnType<T>>,
+  fun?: TPaginationFun<ReturnType<T>>,
   config: TPaginationConfig = {
     pageSize: 10,
     params: {},
@@ -46,7 +45,7 @@ export default <T extends (...args: any) => any = (...args: any) => any>(
   }
   const getData = async () => {
     // 如果没有登录，则不请求数据
-    if (!getAuth() || pagination.loading) {
+    if (pagination.loading || !fun) {
       return
     }
     pagination.loading = true
@@ -56,7 +55,7 @@ export default <T extends (...args: any) => any = (...args: any) => any>(
         pageSize: pagination.pageSize,
         ...params,
       })
-      pagination.hasMore = list.length === pageSize
+      pagination.hasMore = list.length === pageSize * pagination.pageNum
       pagination.list = (
         pagination.pageNum === 1 ? list : [...(pagination.list as T[]), ...list]
       ) as ReturnType<T>

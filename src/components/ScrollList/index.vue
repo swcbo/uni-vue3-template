@@ -2,7 +2,7 @@
  * @Author: swcbo
  * @Date: 2022-03-05 14:48:41
  * @LastEditors: swcbo
- * @LastEditTime: 2022-09-12 17:02:57
+ * @LastEditTime: 2022-09-25 14:41:52
  * @FilePath: /uni-vue3-template/src/components/ScrollList/index.vue
  * @Description: 滚动列表
 -->
@@ -14,37 +14,38 @@
     @scrolltolower="lower"
     :refresher-triggered="triggered"
     :refresher-default-style="gray ? 'black' : 'white'"
-    :style="{
-      height: `calc(100vh - ${top})`,
-    }"
     :class="class"
-    class="my-scroll-view"
+    class="my-scroll-view h-full"
   >
     <slot :list="pagination.list"></slot>
-
-    <uni-load-more
-      :status="pagination.status"
-      v-show="pagination.list.length > 0"
-    />
-    <Empty
+    <u-loadmore :status="pagination.status" v-if="pagination.list.length > 0" />
+    <u-empty
       v-if="pagination.list.length === 0 && !pagination.loading && showEmpty"
-    />
+      class="h-full"
+      v-bind="empty"
+    >
+    </u-empty>
   </scroll-view>
 </template>
 <script setup lang="ts">
-import useListLoad from '@/hooks/useListLoad'
-import Empty from '@/layout/Empty/index.vue'
+import useListLoad, { TPaginationFun } from '@/hooks/useListLoad'
 import { PropType, ref, watch } from 'vue'
 const emits = defineEmits(['change'])
 const triggered = ref(false)
 const props = defineProps({
+  empty: {
+    type: Object,
+    default: () => ({
+      mode: 'data',
+      icon: 'http://cdn.uviewui.com/uview/empty/data.png',
+    }),
+  },
   params: {
     type: Object,
     default: () => {},
   },
   searchFun: {
-    type: Object as PropType<(...args: any) => Promise<unknown[]>>,
-    required: true,
+    type: Function as PropType<TPaginationFun>,
   },
   class: {
     type: String,
