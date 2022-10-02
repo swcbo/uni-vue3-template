@@ -1,23 +1,30 @@
 <template>
-  <Page title="首页" hiddenBack :status="status" ref="pageRef">
-    <ScrollList :searchFun="searchFun">
-      <template #default="{ list }">
-        <div v-for="item in list" :key="item">
-          {{ item }}
-        </div>
+  <Page title="首页" hiddenBack ref="pageRef">
+    <z-paging ref="paging" v-model="dataList" @query="queryList">
+      <template #top>
+        <view class="h-5 bg-blue-900 w-[100vw]">我是固定在顶部的view</view>
       </template>
-    </ScrollList>
+      <view class="h-4 bg-red-400 mt-2" v-for="(item, index) in dataList">
+        <view class="text-blue-400">{{ item.title }}</view>
+      </view>
+    </z-paging>
   </Page>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import Page from '@/components/Page/index.vue'
-import useLoad from '@/hooks/useLoad'
-import ScrollList from '../../components/ScrollList/index.vue'
-const { status, pageRef } = useLoad(async (values) => {})
-const searchFun = (params: any) =>
-  new Promise<number[]>((resolve) => {
-    resolve([1, 23, 4, 1, 5, 6, 7, 8])
-  })
+const paging = ref<any>(null)
+let dataList = ref([{ title: 'dsadas' }])
+const queryList = () => {
+  setTimeout(() => {
+    paging.value!.complete([
+      { title: 'dsa2das' },
+      { title: 'dsad3as' },
+      { title: 'dsa4das' },
+    ])
+  }, 1000)
+}
 </script>
-<style lang="scss" scoped></style>
+
+<style scoped></style>

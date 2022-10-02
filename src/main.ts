@@ -6,7 +6,6 @@ import App from './App.vue'
 import uviewPlus from 'uview-plus'
 const createApp = () => {
   const app = createSSRApp(App)
-  uni.$emit
   app.use(uviewPlus)
   app.use(createPinia())
   return {
