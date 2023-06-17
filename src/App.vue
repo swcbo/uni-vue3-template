@@ -1,6 +1,7 @@
 <script lang="ts">
-import { useScreenStore } from '@/store/screen'
 import { onLaunch } from '@dcloudio/uni-app'
+import { useScreenStore } from '@/store/screen'
+
 export default {
   globalData: {},
   setup() {
@@ -8,17 +9,18 @@ export default {
     onLaunch(async () => {
       screenStore.getStatusInfo()
     })
-  },
+  }
 }
 </script>
+
 <style lang="scss">
-@import 'uview-plus/index.scss';
+@import url('uview-plus/index.scss');
 page {
-  width: 100vw;
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: #f9f9f9;
   box-sizing: border-box;
+  width: 100vw;
   height: 100%;
+  background-color: #f9f9f9;
 }
 </style>

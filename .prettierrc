@@ -7,5 +7,6 @@
   "jsxBracketSameLine": true,
   "semi": false,
   "endOfLine": "auto",
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "singleAttributePerLine": true
 }

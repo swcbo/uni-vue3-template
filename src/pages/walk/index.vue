@@ -1,10 +1,15 @@
-<template>
-  <Page title="打卡" hiddenBack></Page>
-</template>
-
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
 import Page from '@/components/Page/index.vue'
+
 onLoad(() => {})
 </script>
+
+<template>
+  <Page
+    title="打卡"
+    hidden-back
+  ></Page>
+</template>
+
 <style lang="scss" scoped></style>

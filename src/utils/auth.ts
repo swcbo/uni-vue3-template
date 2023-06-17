@@ -7,29 +7,29 @@
  * @Description:
  */
 
-import { wxLogin, wxConfig } from '@/api/user'
-import { SHARE_CONFIG } from '@/constant'
 import { getSearch } from '.'
+import { wxConfig, wxLogin } from '@/api/user'
+import { SHARE_CONFIG } from '@/constant'
 
-export const setAuth = (auth: string) => {
+export function setAuth(auth: string) {
   uni.setStorageSync('auth', auth)
 }
-export const setUserId = (auth: string) => {
+export function setUserId(auth: string) {
   uni.setStorageSync('userId', auth)
 }
-export const getUserId = () => {
-  let auth = uni.getStorageSync('userId')
-  return auth ? auth : ''
+export function getUserId() {
+  const auth = uni.getStorageSync('userId')
+  return auth || ''
 }
 
-export const getAuth = () => {
-  let auth = uni.getStorageSync('auth')
-  return auth ? auth : ''
+export function getAuth() {
+  const auth = uni.getStorageSync('auth')
+  return auth || ''
 }
 
 /** 微信登录 */
-export const wxCodeLogin = () =>
-  new Promise((resolve, reject) => {
+export function wxCodeLogin() {
+  return new Promise((resolve, reject) => {
     // #ifdef MP-WEIXIN
     uni.login({
       success: async ({ code }) => {
@@ -40,7 +40,7 @@ export const wxCodeLogin = () =>
           reject(e)
         }
       },
-      fail: reject,
+      fail: reject
     })
     // #endif
     wxGetUrlCode()
@@ -49,9 +49,10 @@ export const wxCodeLogin = () =>
       })
       .catch(reject)
   })
+}
 
 /** 微信公众号登录 */
-export const wxGetUrlCode = async () => {
+export async function wxGetUrlCode() {
   // #ifdef H5
   const code = getSearch('code')
   if (code) {
@@ -67,11 +68,11 @@ export const wxGetUrlCode = async () => {
 }
 
 /** 微信公众号配置 */
-export const doWxConfig = async () => {
+export async function doWxConfig() {
   const data = await wxConfig()
   window.wx.config({
     ...data,
-    jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData'],
+    jsApiList: ['updateAppMessageShareData', 'updateTimelineShareData']
   })
   window.wx.ready(() => {
     window.wx.updateAppMessageShareData(SHARE_CONFIG)
@@ -79,7 +80,7 @@ export const doWxConfig = async () => {
   })
 }
 
-export const getLogin = () => {
+export function getLogin() {
   if (!getAuth()) {
     // #ifdef MP-WEIXIN
     uni.showModal({
@@ -88,9 +89,9 @@ export const getLogin = () => {
       success({ confirm }) {
         if (confirm)
           uni.reLaunch({
-            url: '/pages/mine/index',
+            url: '/pages/mine/index'
           })
-      },
+      }
     })
     // #endif
     wxGetUrlCode()

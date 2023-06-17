@@ -1,16 +1,12 @@
-import '@/style/tailwind.css'
-import { createPinia } from 'pinia'
+import 'uno.css'
 import { createSSRApp } from 'vue'
-import App from './App.vue'
-// @ts-ignore
 import uviewPlus from 'uview-plus'
-const createApp = () => {
-  const app = createSSRApp(App)
-  app.use(uviewPlus)
-  app.use(createPinia())
+import App from './App.vue'
+import store from './store'
+
+export function createApp() {
+  const app = createSSRApp(App).use(uviewPlus).use(store)
   return {
-    app,
+    app
   }
 }
-
-export default createApp

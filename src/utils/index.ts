@@ -1,6 +1,7 @@
 import { isH5 } from './platform'
-export const getSearch = (code: string) => {
-  const reg = new RegExp('(^|&)' + code + '=([^&]*)(&|$)')
+
+export function getSearch(code: string) {
+  const reg = new RegExp(`(^|&)${code}=([^&]*)(&|$)`)
   const r = location.search.substring(1).match(reg)
   if (r != null) {
     return decodeURIComponent(r[2])

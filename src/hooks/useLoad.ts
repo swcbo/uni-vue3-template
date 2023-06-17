@@ -1,9 +1,10 @@
-import { TPageStatus } from '@/constant'
 import { onLoad } from '@dcloudio/uni-app'
 import { ref } from 'vue'
-import Page from '@/components/Page/index.vue'
+import type { TPageStatus } from '@/constant'
+import type Page from '@/components/Page/index.vue'
+
 export default (
-  load: (values: Record<string, string | undefined>) => Promise<void>,
+  load: (values: Record<string, string | undefined>) => Promise<void>
 ) => {
   const status = ref<TPageStatus>('loading')
   const pageRef = ref<InstanceType<typeof Page> | null>(null)

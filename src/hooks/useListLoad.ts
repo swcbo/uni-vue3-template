@@ -1,13 +1,14 @@
 import { onReachBottom } from '@dcloudio/uni-app'
 import { reactive, watch } from 'vue'
 import usePullDown from './usePullDown'
+
 export type TPaginationFun<T = Array<any>> = (data: {
   page: number
   pageSize: number
   [key: string]: any
 }) => Promise<T>
 
-export type TPagination<T> = {
+export interface TPagination<T> {
   pageNum: number
   list: T[]
   pageSize: number
@@ -15,7 +16,7 @@ export type TPagination<T> = {
   status: 'more' | 'loading' | 'noMore'
   loading: boolean
 }
-export type TPaginationConfig = {
+export interface TPaginationConfig {
   pageSize?: number
   params?: any
   noPage?: boolean
@@ -27,8 +28,8 @@ export default <T extends (...args: any) => any = (...args: any) => any>(
     pageSize: 10,
     params: {},
     noPage: false,
-    immediate: true,
-  },
+    immediate: true
+  }
 ) => {
   const { pageSize = 10, params = {}, noPage = false } = config
   const pagination = reactive<TPagination<ReturnType<T>>>({
@@ -37,12 +38,9 @@ export default <T extends (...args: any) => any = (...args: any) => any>(
     pageSize,
     hasMore: false,
     status: 'noMore',
-    loading: false,
+    loading: false
   })
-  const refreshData = async () => {
-    pagination.pageNum = 1
-    await getData()
-  }
+
   const getData = async () => {
     // 如果没有登录，则不请求数据
     if (pagination.loading || !fun) {
@@ -53,7 +51,7 @@ export default <T extends (...args: any) => any = (...args: any) => any>(
       const list = await fun({
         pageNum: pagination.pageNum,
         pageSize: pagination.pageSize,
-        ...params,
+        ...params
       })
       pagination.hasMore = list.length === pageSize * pagination.pageNum
       pagination.list = (
@@ -66,6 +64,10 @@ export default <T extends (...args: any) => any = (...args: any) => any>(
       pagination.status = 'noMore'
     }
     pagination.loading = false
+  }
+  const refreshData = async () => {
+    pagination.pageNum = 1
+    await getData()
   }
   const loadMore = async () => {
     if (pagination.hasMore) {
@@ -88,14 +90,14 @@ export default <T extends (...args: any) => any = (...args: any) => any>(
   watch(
     () => params,
     refreshData,
-    //深度监听
-    { deep: true, immediate: config.immediate },
+    // 深度监听
+    { deep: true, immediate: config.immediate }
   )
   return {
     pagination,
     loadMore,
     getData,
     refreshData,
-    onReachBottom,
+    onReachBottom
   }
 }

@@ -1,8 +1,8 @@
-export const realToast = (title = '', fun: () => void) => {
+export function realToast(title = '', fun: () => void) {
   uni.showToast({
     title,
     duration: 1500,
-    mask: true,
+    mask: true
   })
   const timer = setTimeout(() => {
     clearTimeout(timer)
@@ -11,9 +11,9 @@ export const realToast = (title = '', fun: () => void) => {
 }
 
 /** toast */
-export const showToast = (msg: string) => {
+export function showToast(msg: string) {
   uni.showToast({
     title: msg,
-    icon: 'none',
+    icon: 'none'
   })
 }

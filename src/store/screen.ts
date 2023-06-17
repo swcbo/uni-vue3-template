@@ -1,5 +1,6 @@
-import { isH5 } from './../utils/platform'
 import { defineStore } from 'pinia'
+import { isH5 } from './../utils/platform'
+
 interface IScreenStore {
   statusBarHeight: number
   topHeight: string
@@ -18,7 +19,7 @@ export const useScreenStore = defineStore<
   state: () => ({
     statusBarHeight: 0,
     topHeight: isH5 ? '44px' : '0px',
-    screenInfo: undefined,
+    screenInfo: undefined
   }),
   actions: {
     getStatusInfo() {
@@ -26,7 +27,7 @@ export const useScreenStore = defineStore<
       const { statusBarHeight = 20, safeArea } = info
       this.screenInfo = info
       this.statusBarHeight = statusBarHeight
-      this.topHeight = safeArea?.top + 'px'
-    },
-  },
+      this.topHeight = `${safeArea?.top}px`
+    }
+  }
 })
