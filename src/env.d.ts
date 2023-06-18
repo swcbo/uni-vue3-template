@@ -20,3 +20,9 @@ interface Uni {
     setConfig: (params: { config: { unit: string } }) => void
   }
 }
+
+
+declare module 'uview-plus'{
+  const uviewPlus: any
+  export default uviewPlus
+}
