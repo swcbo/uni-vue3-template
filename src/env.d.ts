@@ -18,6 +18,7 @@ interface Window {
 interface Uni {
   $u: {
     setConfig: (params: { config: { unit: string } }) => void
+    
   }
 }
 

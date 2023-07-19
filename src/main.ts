@@ -10,3 +10,9 @@ export function createApp() {
     app
   }
 }
+
+uni.$u.setConfig({
+  config: {
+    unit: 'rpx'
+  }
+})

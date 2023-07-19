@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('uview-plus/index.scss');
+@import url('../node_modules/uview-plus/index.scss');
 page {
   overflow-x: hidden;
   overflow-y: auto;
