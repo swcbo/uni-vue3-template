@@ -19,7 +19,6 @@ module.exports = {
   messages: {
     type: '选择一种你的提交类型:',
     scope: '选择一个scope (可选):',
-    // used if allowCustomScopes is true
     customScope: '模块名称:',
     subject: '描述:',
     body: '长描述，使用"|"换行(可选):\n',
