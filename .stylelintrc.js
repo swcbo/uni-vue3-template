@@ -1,6 +1,7 @@
 module.exports = {
   extends: ['stylelint-config-standard'],
   plugins: ['stylelint-order', 'stylelint-scss'],
+  ignoreFiles: ["node_modules/**","src/uni_modules/**"],
   overrides: [
     {
       files: ['**/*.scss'],
@@ -19,6 +20,7 @@ module.exports = {
         ignoreAtRules: ['if', 'else'],
       },
     ],
+    'import-notation': 'string',
     'string-quotes': 'single',
     'alpha-value-notation': 'number',
     'at-rule-empty-line-before': 'never',
@@ -41,6 +43,10 @@ module.exports = {
         ],
       },
     ],
+    "selector-pseudo-class-no-unknown": null,
+    "selector-class-pattern": null,
+    "no-duplicate-selectors": null,
+    "function-no-unknown": null,
     'selector-type-no-unknown': [true, { ignoreTypes: ['page', 'radio', 'checkbox'] }],
     'number-leading-zero': 'always',
     'unit-no-unknown': [true, { ignoreUnits: ['rpx'] }],
